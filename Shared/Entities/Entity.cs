@@ -1,6 +1,6 @@
 ﻿namespace Shared.Entities;
 
-internal abstract class Entity : IEquatable<Entity>
+public abstract class Entity : IEquatable<Entity>
 {
     public Entity()
     {
