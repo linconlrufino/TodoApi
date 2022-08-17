@@ -4,17 +4,19 @@ using Shared.Commands;
 
 namespace Domain.Commands;
 
-public class MarkTodoAsUndoneCommand : Notifiable<Notification>, ICommand
+public class UpdateTodoCommand : Notifiable<Notification>, ICommand
 {
-    public MarkTodoAsUndoneCommand() { }
+    public UpdateTodoCommand() { }
 
-    public MarkTodoAsUndoneCommand(Guid id, string user)
+    public UpdateTodoCommand(Guid id, string title, string user)
     {
         Id = id;
+        Title = title;
         User = user;
     }
 
     public Guid Id { get; set; }
+    public string Title { get; set; }
     public string User { get; set; }
 
     public void Validate()
@@ -23,6 +25,7 @@ public class MarkTodoAsUndoneCommand : Notifiable<Notification>, ICommand
             new Contract<Notification>()
                 .Requires()
                 .IsGreaterThan(User, 6, "User", "Usuário inválido!")
+                .IsGreaterThan(Title, 3, "Title", "Por favor, descreva melhor esta tarefa!")
             );
     }
 }

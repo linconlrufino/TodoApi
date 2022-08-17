@@ -25,8 +25,8 @@ public class CreateTodoCommand : Notifiable<Notification>, ICommand
         AddNotifications(
             new Contract<Notification>()
                 .Requires()
-                .IsLowerThan(Title, 3, "Title", "Por favor , descreva melhor esta tarefa!")
-                .IsLowerThan(User, 6, "User", "Usuário inválido")
+                .IsGreaterThan(Title, 3, "Title", "Por favor , descreva melhor esta tarefa!")
+                .IsGreaterThan(User, 6, "User", "Usuário inválido")
         );
     }
 }
