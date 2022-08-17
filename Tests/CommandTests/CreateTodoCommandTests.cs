@@ -4,6 +4,15 @@ namespace Tests.CommandTests;
 
 public class CreateTodoCommandTests
 {
+    private readonly CreateTodoCommand invalidTodoCommand;
+    private readonly CreateTodoCommand validTodoCommand;
+
+    public CreateTodoCommandTests()
+    {
+        invalidTodoCommand = new CreateTodoCommand("", "", DateTime.Now);
+        validTodoCommand = new CreateTodoCommand("Titulo da tarefa", "tolstoi", DateTime.Now);
+    }
+
     [Fact]
     [Trait("Category", "Command")]
     public void Dado_um_comando_invalido()
@@ -11,21 +20,17 @@ public class CreateTodoCommandTests
         //Arrange, Act, Assert
         //Red, Greed, Refactor
 
-        var command = new CreateTodoCommand("", "", DateTime.Now);
+        invalidTodoCommand.Validate();
 
-        command.Validate();
-
-        Assert.False(command.IsValid);
+        Assert.False(invalidTodoCommand.IsValid);
     }
 
     [Fact]
     [Trait("Category", "Command")]
     public void Dado_um_comando_valido()
     {
-        var command = new CreateTodoCommand("Titulo da tarefa", "tolstoi", DateTime.Now);
+        validTodoCommand.Validate();
 
-        command.Validate();
-
-        Assert.True(command.IsValid);
+        Assert.True(validTodoCommand.IsValid);
     }
 }
