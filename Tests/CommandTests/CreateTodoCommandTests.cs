@@ -1,4 +1,4 @@
-﻿
+﻿using Domain.Commands;
 
 namespace Tests.CommandTests;
 
@@ -11,16 +11,21 @@ public class CreateTodoCommandTests
         //Arrange, Act, Assert
         //Red, Greed, Refactor
 
-        Assert.False(false);
+        var command = new CreateTodoCommand("", "", DateTime.Now);
+
+        command.Validate();
+
+        Assert.False(command.IsValid);
     }
 
     [Fact]
     [Trait("Category", "Command")]
     public void Dado_um_comando_valido()
     {
-        //Arrange, Act, Assert
-        //Red, Greed, Refactor
+        var command = new CreateTodoCommand("Titulo da tarefa", "tolstoi", DateTime.Now);
 
-        Assert.False(false);
+        command.Validate();
+
+        Assert.True(command.IsValid);
     }
 }
