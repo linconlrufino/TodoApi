@@ -14,4 +14,8 @@ public class FakeTodoRepository : ITodoRepository
     {
 
     }
+    public TodoItem GetById(Guid id, string user)
+    {
+        return new TodoItem("Titulo Todo", "Tolstoi", DateTime.Now);
+    }
 }
