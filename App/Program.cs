@@ -7,14 +7,18 @@ var conectionStringInMemory = builder.Configuration.GetConnectionString("Default
 
 builder.Services.AddInMemoryDataBaseConnection(conectionStringInMemory);
 builder.Services.AddRepositories();
+builder.Services.AddHandlers();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.MapControllers();
 
 app.Run();
 
 
 
-//builder.Services.AddControllers();
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
@@ -28,4 +32,3 @@ app.Run();
 
 //app.UseAuthorization();
 
-//app.MapControllers();
