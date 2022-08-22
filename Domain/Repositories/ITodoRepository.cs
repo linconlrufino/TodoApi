@@ -8,7 +8,7 @@ public interface ITodoRepository
 
     void Update(TodoItem todo);
 
-    IEnumerable<TodoItem> GetById(Guid id, string user);
+    TodoItem GetById(Guid id, string user);
 
     IEnumerable<TodoItem> GetAll(string user);
 

@@ -26,12 +26,11 @@ public class TodoRepository : ITodoRepository
         _context.SaveChanges();
     }
 
-    public IEnumerable<TodoItem> GetById(Guid id, string user)
+    public TodoItem GetById(Guid id, string user)
     {
         return _context.Todos
                      .AsNoTracking()
-                     .Where(TodoQueries.GetById(id, user))
-                     .OrderBy(x => x.Date);
+                     .FirstOrDefault(TodoQueries.GetById(id, user));
     }
 
     public IEnumerable<TodoItem> GetAll(string user)
