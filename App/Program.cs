@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureMvc(builder);
 
 //var conectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var conectionStringInMemory = builder.Configuration.GetConnectionString("DefaultConnectionInMemory");
+var conectionStringInMemory = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddInMemoryDataBaseConnection(conectionStringInMemory);
 builder.Services.AddRepositories();
