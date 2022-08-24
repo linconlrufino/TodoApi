@@ -15,7 +15,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetAll(
         [FromServices] ITodoRepository repository)
     {
-        return repository.GetAll("tolstoi");
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetAll(user);
     }
 
     [Route("done")]
@@ -23,7 +24,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetAllDone(
         [FromServices] ITodoRepository repository)
     {
-        return repository.GetAllDone("tolstoi");
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetAllDone(user);
     }
 
     [Route("undone")]
@@ -31,7 +33,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetAllUndone(
         [FromServices] ITodoRepository repository)
     {
-        return repository.GetAllUndone("tolstoi");
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetAllUndone(user);
     }
 
     [Route("done/today")]
@@ -39,7 +42,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetDoneForToday(
         [FromServices] ITodoRepository repository)
     {
-        return repository.GetByPeriod("tolstoi", DateTime.Now.Date, true);
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetByPeriod(user, DateTime.Now.Date, true);
     }
 
     [Route("undone/today")]
@@ -47,7 +51,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetInactiveForToday(
         [FromServices] ITodoRepository repository)
     {
-        return repository.GetByPeriod("tolstoi", DateTime.Now.Date, false);
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetByPeriod(user, DateTime.Now.Date, false);
     }
 
     [Route("done/tomorrow")]
@@ -55,7 +60,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetDoneForTomorrow(
     [FromServices] ITodoRepository repository)
     {
-        return repository.GetByPeriod("tolstoi", DateTime.Now.Date.AddDays(1), true);
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetByPeriod(user, DateTime.Now.Date.AddDays(1), true);
     }
 
     [Route("undone/tomorrow")]
@@ -63,7 +69,8 @@ public class TodoController : ControllerBase
     public IEnumerable<TodoItem> GetUndoneForTomorrow(
    [FromServices] ITodoRepository repository)
     {
-        return repository.GetByPeriod("tolstoi", DateTime.Now.Date.AddDays(1), false);
+        var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+        return repository.GetByPeriod(user, DateTime.Now.Date.AddDays(1), false);
     }
 
     [Route("")]
@@ -73,6 +80,7 @@ public class TodoController : ControllerBase
         [FromServices] TodoHandler handler
         )
     {
+        command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
         return (GenericCommandResult)handler.Handle(command);
     }
 
@@ -82,6 +90,7 @@ public class TodoController : ControllerBase
         [FromBody] UpdateTodoCommand command,
         [FromServices] TodoHandler handler)
     {
+        command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
         return (GenericCommandResult)handler.Handle(command);
     }
 
@@ -91,6 +100,7 @@ public class TodoController : ControllerBase
         [FromBody] MarkTodoAsDoneCommand command,
         [FromServices] TodoHandler handler)
     {
+        command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
         return (GenericCommandResult)handler.Handle(command);
     }
 
@@ -100,6 +110,7 @@ public class TodoController : ControllerBase
         [FromBody] MarkTodoAsUndoneCommand command,
         [FromServices] TodoHandler handler)
     {
+        command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
         return (GenericCommandResult)handler.Handle(command);
     }
 }
